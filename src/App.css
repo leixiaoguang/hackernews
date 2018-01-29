@@ -1,0 +1,64 @@
+.page {
+  margin: 20px;
+}
+
+.interactions {
+  text-align: center;
+}
+
+.table {
+  margin: 20px 0;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.table-empty {
+  margin: 200px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.table-row {
+  display: flex;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #e3e3e3;
+  background: #ffffff;
+  white-space: nowrap;
+  line-height: 24px;
+}
+
+.table-header > span {
+  overflow: hidden;
+  padding: 0 5px;
+  text-overflow: ellipsis;
+}
+
+.table-row > span {
+  overflow: hidden;
+  padding: 0 5px;
+  text-overflow: ellipsis;
+}
+
+.button-inline {
+  padding: 0;
+  border-width: 0;
+  background: transparent;
+  color: inherit;
+  text-align: inherit;
+  font-size: inherit;
+  cursor: pointer;
+
+  -webkit-font-smoothing: inherit;
+}
+
+.button-active {
+  border-bottom: 1px solid #38bb6c;
+  border-radius: 0;
+}
