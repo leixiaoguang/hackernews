@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import fetch from 'isomorphic-fetch';
+import PropTypes from 'prop-types';
 
 const DEFAULT_QUERY = 'redux';
 const DEFAULT_HPP = 100;
@@ -105,7 +107,7 @@ class App extends Component {
       <div className="page">
         <div className="interactions">
           <Search
-            searchItem={searchItem}
+            value={searchItem}
             onSearchChange={this.onSearchChange}
             onSearchSubmit={this.onSearchSubmit}
           >
@@ -131,12 +133,30 @@ class App extends Component {
   }
 }
 
-const Search = ({ searchItem, onSearchChange, onSearchSubmit, children }) => (
-  <form onSubmit={onSearchSubmit}>
-    <input type="text" value={searchItem} onChange={onSearchChange} />
-    <button type="submit">{children}</button>
-  </form>
-);
+class Search extends Component {
+  componentDidMount() {
+    if (this.input) {
+      this.input.focus();
+    }
+  }
+
+  render() {
+    const { value, onSearchChange, onSearchSubmit, children } = this.props;
+    return (
+      <form onSubmit={onSearchSubmit}>
+        <input
+          type="text"
+          value={value}
+          onChange={onSearchChange}
+          ref={node => {
+            this.input = node;
+          }}
+        />
+        <button type="submit">{children}</button>
+      </form>
+    );
+  }
+}
 
 const largeColumn = {
   width: '40%'
@@ -173,10 +193,34 @@ const Table = ({ list, onDismiss }) => (
   </div>
 );
 
+Table.propTypes = {
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      objectID: PropTypes.string.isRequired,
+      author: PropTypes.string,
+      url: PropTypes.string,
+      num_comments: PropTypes.number,
+      points: PropTypes.number
+    })
+  ).isRequired,
+  onDismiss: PropTypes.func.isRequired
+};
+
 const Button = ({ onClick, className, children }) => (
   <button onClick={onClick} className={className} type="button">
     {children}
   </button>
 );
 
+Button.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  children: PropTypes.node.isRequired
+};
+
+Button.defaultProps = {
+  className: ''
+};
+
 export default App;
+export { Button, Search, Table };
